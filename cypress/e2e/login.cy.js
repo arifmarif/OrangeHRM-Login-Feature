@@ -28,17 +28,7 @@ describe("OrangeHRM Login Feature", () => {
     cy.contains("Dashboard").should("be.visible");
   });
 
-  // TC_004 - 
-  it("", () => {
-    
-  });
-  
-  // TC_005 - 
-  it("", () => {
-    
-  });
-  
-  /*
+  //menambahkan perintah
   Cypress.Commands.add("login", (username, password) => {
     cy.visit("https://opensource-demo.orangehrmlive.com/");
     cy.get('input[name="username"]').type(username);
@@ -46,67 +36,32 @@ describe("OrangeHRM Login Feature", () => {
     cy.get('button[type="submit"]').click();
   });
 
-  // TC_004 - Menambahkan user admin baru
-  it("TC_004 - Tambah user admin baru", () => {
+  // TC_004 - Menambahkan User Baru
+  it("TC_004 - Tambah user baru", () => {
     cy.login("Admin", "admin123"); // custom command login
-    cy.get(":nth-child(1) > .oxd-main-menu-item").click(); // klik menu Admin
+    cy.get(":nth-child(2) > .oxd-main-menu-item").click(); // klik menu Admin
     cy.contains("Add").click();
     cy.get("form").within(() => {
-      cy.get('input[name="username"]').type("Peter");
-      cy.get('input[name="password"]').type("Qwerty!@123");
-      cy.get('input[name="confirmPassword"]').type("Qwerty!@123");
+      cy.get('input[name="firstName"]').type("Peter");
+      cy.get('input[name="middleName"]').type("Supri");
+      cy.get('input[name="lastName"]').type("Yadi");
+      cy.get('.oxd-input').eq(3).clear().type("0394");
       cy.root().submit();
     });
     cy.contains("Successfully Saved").should("be.visible");
   });
-
-  // TC_005 - Menghapus user admin
+  
+ // TC_005 - Menghapus user 
   it("TC_005 - Hapus user admin dengan username Peter", () => {
     cy.login("Admin", "admin123");
-    cy.get(":nth-child(1) > .oxd-main-menu-item").click();
-    cy.get('input[placeholder="Search"]').type("Peter");
-    cy.contains("Search").click();
-    cy.contains("Peter")
-      .parents("tr")
-      .within(() => {
-        cy.get(".oxd-icon-button").click(); // klik delete
-      });
+    cy.get(":nth-child(2) > .oxd-main-menu-item").click();
+    cy.get("form").within(() => {
+      cy.get('input[class="oxd-input oxd-input--active"]').type("0394");
+      cy.contains("Search").click();
+    });
+    cy.contains("0394");
+        cy.get("i.oxd-icon.bi-trash").click();
     cy.contains("Yes, Delete").click();
     cy.contains("Successfully Deleted").should("be.visible");
   });
-
-  // TC_006 - Edit role user admin
-  it("TC_006 - Edit role user Mudry dari ESS ke Admin", () => {
-    cy.login("Admin", "admin123");
-    cy.get(":nth-child(1) > .oxd-main-menu-item").click();
-    cy.get('input[placeholder="Search"]').type("Mudry");
-    cy.contains("Search").click();
-    cy.contains("Mudry")
-      .parents("tr")
-      .within(() => {
-        cy.get(".oxd-icon-button").eq(0).click(); // klik edit
-      });
-    cy.get('select[name="role"]').select("Admin");
-    cy.contains("Save").click();
-    cy.contains("Successfully Updated").should("be.visible");
-  });
-
-  // TC_007 - Tambah employee baru
-  it("TC_007 - Tambah user employee baru", () => {
-    cy.login("Admin", "admin123");
-    cy.get(":nth-child(2) > .oxd-main-menu-item").click(); // klik menu PIM
-    cy.contains("Add Employee").click();
-    cy.get('input[name="firstName"]').type("Mudry");
-    cy.get('input[name="middleName"]').type("Peter");
-    cy.get('input[name="lastName"]').type("Jaya");
-    cy.get('input[name="employeeId"]').clear().type("0491");
-    cy.get('input[type="checkbox"]').check(); // create login detail
-    cy.get('input[name="username"]').type("Mudry");
-    cy.get('input[name="password"]').type("Qwerty!@123");
-    cy.get('input[name="confirmPassword"]').type("Qwerty!@123");
-    cy.contains("Save").click();
-    cy.contains("Successfully Saved").should("be.visible");
-  });
-*/
-});
-
+  
