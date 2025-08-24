@@ -27,6 +27,17 @@ describe("OrangeHRM Login Feature", () => {
     cy.url().should("include", "/dashboard");
     cy.contains("Dashboard").should("be.visible");
   });
+
+  // TC_004 - 
+  it("", () => {
+    
+  });
+  
+  // TC_005 - 
+  it("", () => {
+    
+  });
+  
   /*
   Cypress.Commands.add("login", (username, password) => {
     cy.visit("https://opensource-demo.orangehrmlive.com/");
@@ -98,3 +109,4 @@ describe("OrangeHRM Login Feature", () => {
   });
 */
 });
+
