@@ -4,7 +4,17 @@ describe("OrangeHRM Login Feature", () => {
     cy.visit("https://opensource-demo.orangehrmlive.com/");
     cy.get('input[name="username"]').type("Admin");
     cy.get('input[name="password"]').type("admin123");
+
+    //intercept
+    cy.intercept(
+      "GET",
+      "https://opensource-demo.orangehrmlive.com/web/index.php/api/v2/dashboard/employees/action-summary"
+    ).as("Login");
+
     cy.get('button[type="submit"]').click();
+
+    cy.wait("@Login");
+
     cy.url().should("include", "/dashboard");
     cy.contains("Dashboard").should("be.visible");
   });
@@ -45,13 +55,13 @@ describe("OrangeHRM Login Feature", () => {
       cy.get('input[name="firstName"]').type("Peter");
       cy.get('input[name="middleName"]').type("Supri");
       cy.get('input[name="lastName"]').type("Yadi");
-      cy.get('.oxd-input').eq(3).clear().type("0394");
+      cy.get(".oxd-input").eq(3).clear().type("0394");
       cy.root().submit();
     });
     cy.contains("Successfully Saved").should("be.visible");
   });
-  
- // TC_005 - Menghapus user 
+
+  // TC_005 - Menghapus user
   it("TC_005 - Hapus user admin dengan username Peter", () => {
     cy.login("Admin", "admin123");
     cy.get(":nth-child(2) > .oxd-main-menu-item").click();
@@ -60,8 +70,8 @@ describe("OrangeHRM Login Feature", () => {
       cy.contains("Search").click();
     });
     cy.contains("0394");
-        cy.get("i.oxd-icon.bi-trash").click();
+    cy.get("i.oxd-icon.bi-trash").click();
     cy.contains("Yes, Delete").click();
     cy.contains("Successfully Deleted").should("be.visible");
   });
-  
+});
